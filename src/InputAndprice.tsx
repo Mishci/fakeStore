@@ -12,23 +12,23 @@ export const InputAndPrice: React.FC<AccepterProps> = ({ el, i }) => {
   const checkoutContext = useContext(CheckoutContext);
   const [inputValue, setInputValue] = useState<string>("1");
 
+  //handler function to recalculate the single item price total
   const handlepriceCalc = (i: number) => {
     const updatedTotalPrice: Array<number> = [...checkoutContext.totalPrice];
-    // if (updatedTotalPrice.length > 0) {
     updatedTotalPrice[i] = el.price + el.price * parseInt(inputValue);
-    // }
 
     console.log(updatedTotalPrice);
     checkoutContext.setTotalPrice(updatedTotalPrice);
     return updatedTotalPrice;
   };
 
-  // Ccontroller of the onclick change of number of products
+  // Ccontroller of the onclick change of number of exemplars ot the same product
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     // 👇 Store the input value to local state
     setInputValue(e.target.value);
   };
 
+  //cummulative function tracking the exemplars + recalculate the item total price
   const onchangeHandler = (e: ChangeEvent<HTMLInputElement>, i: number) => {
     handleInputChange(e);
     handlepriceCalc(i);
