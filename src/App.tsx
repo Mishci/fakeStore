@@ -54,7 +54,6 @@ function App() {
           throw new Error("Something went wront with our server!");
 
         const products: Product[] = await response.json();
-
         setProductsList([...productsList, ...products]);
         console.log(productsList);
         console.log("break");
@@ -65,6 +64,7 @@ function App() {
       }
     };
     getProducts();
+    return () => controller.abort();
   }, []);
 
   return (
