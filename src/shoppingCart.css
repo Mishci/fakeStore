@@ -1,0 +1,244 @@
+
+
+/* Global "table" column settings */
+.product-image { float: left; width: 20%; }
+.product-details { float: left; width: 37%; }
+.product-price { float: left; width: 12%; }
+.product-quantity { float: left; width: 10%; }
+.product-removal { float: left; width: 9%; }
+.product-line-price { float: left; width: 12%; text-align: right; }
+
+
+/* This is used as the traditional .clearfix class */
+.group:before,
+.group:after {
+    content: '';
+    display: table;
+   position: relative;
+   width: 40%;
+} 
+.group:after {
+    clear: both;
+}
+.group {
+    zoom: 1;
+}
+
+
+/* Apply clearfix in a few places */
+/* .shopping-cart, .column-labels, .product, .totals-item {
+  @extend .group;
+} */
+
+
+
+
+/* Body/Header stuff */
+/* body {
+  padding: 0px 30px 30px 20px;
+  font-family: 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', Helvetica, Arial, sans-serif;;
+  font-weight: 100;
+}
+
+h1 {
+  font-weight: 100;
+} */
+
+label {
+  color: #aaa;
+  
+}
+
+.shopping-cart {
+  margin-top: 1rem;
+}
+
+
+/* Column headers */
+.column-labels {
+  label {
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+    border-bottom: 0.1rem solid #eee;
+  }
+  
+  .product-image, .product-details, .product-removal {
+    text-indent: -9999px;
+  }
+}
+
+
+/* Product entries */
+.product {
+  margin-bottom: 1.2rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 0.1rem solid #eee;
+  display: table;
+  
+  .product-image {
+    text-align: center;
+    
+  }
+  
+  .product-details {
+    .product-title {
+      margin-right: 1.2rem;
+      font-family: 'HelveticaNeue-Medium', 'Helvetica Neue Medium';
+    }
+    .product-description {
+      margin: 0.1rem 1.2rem 0.1rem 0;
+      line-height: auto;
+    }
+  }
+  
+  /* .product-quantity {
+    input {
+      width: auto;
+      
+    }
+  } */
+  
+  .remove-product {
+    border: 0;
+    padding: 0.1rem 0.2rem;
+    background-color: #c66;
+    color: #fff;
+    font-family: 'HelveticaNeue-Medium', 'Helvetica Neue Medium';
+    font-size: 0.8rem;
+    border-radius: 0.1rem;
+  }
+  
+  .remove-product:hover {
+    background-color: #a44;
+  }
+}
+
+
+/* Totals section */
+.totals {
+  .totals-item {
+    float: right;
+    clear: both;
+    width: 40%;
+    margin-bottom: 0.8rem;
+    
+    label {
+      float: left;
+      clear: both;
+      width: 79%;
+      text-align: right;
+    }
+    
+    .totals-value {
+      float: right;
+      width: 21%;
+      text-align: right;
+    }
+  }
+  
+  .totals-item-total {
+    font-family:'HelveticaNeue-Medium', 'Helvetica Neue Medium';;
+  }
+}
+
+.checkout {
+  float: right;
+  border: 0;
+  margin-top: 0.8rem;
+  padding: 0.1rem 1.2rem;
+  background-color: #6b6;
+  color: #fff;
+  font-size: 1.2rem;
+  border-radius: 0.1rem;
+  
+}
+
+.checkout:hover {
+  background-color: #494;
+}
+
+/* Make adjustments for tablet */
+@media screen and (max-width: 650px) {
+  
+  .shopping-cart {
+    margin: 0;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+  }
+  
+  .column-labels {
+    display: none;
+  }
+  
+  .product-image {
+    float: right;
+    width: 10%;
+    img {
+      margin: 0 0 10px 10px;
+    }
+  }
+  
+  .product-details {
+    float: none;
+    margin-bottom: 10px;
+    width: 40%;
+  }
+  
+  .product-price {
+    clear: both;
+    width: 10%;
+  }
+  
+  .product-quantity {
+    width: 10%;
+    input {
+      margin-left: 20px;
+    }
+  }
+  
+  .product-quantity:before {
+    content: 'x';
+  }
+  
+  .product-removal {
+    width: 15%;
+  }
+  
+  .product-line-price {
+    float: right;
+    width: 15%;
+  }
+  
+}
+
+
+/* Make more adjustments for phone */
+@media screen and (max-width: 350px) {
+  
+  .product-removal {
+    float: right;
+  }
+  
+  .product-line-price {
+    float: right;
+    clear: left;
+    width: auto;
+    margin-top: 0.8rem;
+  }
+  
+  .product .product-line-price:before {
+    content: 'Item Total: $';
+  }
+  
+  .totals {
+    .totals-item {
+      label {
+        width: 60%;
+      }
+      
+      .totals-value {
+        width: 40%;
+      }
+    }
+  }
+}

@@ -1,0 +1,150 @@
+@import url("https://fonts.googleapis.com/css2?family=Istok+Web:wght@400;700&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Istok Web", sans-serif;
+}
+
+body {
+  /* display: inline-grid;
+  grid-template-columns: 60% 40%; */
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #212121;
+}
+
+.productsPanel {
+    grid-column-start: 1;
+    width: 100%;
+    display: grid;
+    /* height: 100vh; */
+    grid-template-columns: auto auto auto auto; 
+    grid-template-rows: auto auto auto auto auto;
+}
+
+.cartGridPosition {
+  /* display:inline; */
+  grid-column-start: 2;
+  /* grid-template-columns: auto auto auto auto auto; */
+}
+
+.card {
+  position: relative;
+
+  background: #191919;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  width: 100%;
+  height: 100%;
+  background: #ffce00;
+  transform: skewY(345deg);
+  transition: 0.5s;
+}
+
+.card:hover::before {
+  top: -70%;
+  transform: skewY(390deg);
+}
+
+.card::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  font-weight: 600;
+  font-size: 1em;
+  color: rgba(0, 0, 0, 0.1);
+}
+
+.card .imgBox {
+  position: relative;
+  width: 70%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 1.5rem;
+  padding-left: 5%;
+  padding-right: 5%;
+  z-index: 1;
+}
+/*
+.card .imgBox img {
+    max-width: 100%;
+    
+    transition: .5s;
+}
+
+.card:hover .imgBox img {
+    max-width: 50%;
+      
+}
+*/
+.card .contentBox {
+  position: relative;
+  padding: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 2;
+}
+
+.card .contentBox h3 {
+  font-size: 1rem;
+  color: white;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-align: center;
+}
+
+.card .contentBox h2 {
+    font-size: 1rem;
+    color: white;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-align: center;
+  }
+
+.card .contentBox .price {
+  font-size: 1.5rem;
+  color: red;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.card .contentBox .buy {
+  position: relative;
+  top: 0.5rem;
+  opacity: 0;
+  display: none;
+  padding: 0.2rem 0.2rem;
+  margin-top: 1rem;
+  color: #000000;
+  text-decoration: none;
+  background: #ffce00;
+  border-radius: 2rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: 0.5s;
+}
+
+.card:hover .contentBox .buy {
+  top: 0;
+  opacity: 1;
+  display: block;
+}
+
+.product {
+  height: 1rem;
+  width: auto;
+}
