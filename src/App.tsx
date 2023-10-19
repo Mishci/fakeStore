@@ -4,6 +4,8 @@ import "./app.css";
 import ProductsOffer from "./ProductsOffer";
 import ShoppingCart from "./ShoppingCart";
 
+//------------GLOBAL INTERFACES AND CONTEXTS -----------//
+
 export interface Product {
   id: number;
   title: string;
@@ -27,18 +29,23 @@ export const ToBuyContext = createContext<Context>({
 
 //CHECKOUT CONTEXT
 interface CheckoutContext {
-  totalPrice: number[];
-  setTotalPrice: React.Dispatch<React.SetStateAction<number[]>>;
+  totalPrice: { id: number; price: number }[];
+  setTotalPrice: React.Dispatch<
+    React.SetStateAction<{ id: number; price: number }[]>
+  >;
 }
 
 export const CheckoutContext = createContext<CheckoutContext>({
   totalPrice: [],
   setTotalPrice: () => {},
 });
+//------------end of global interfaces and contexts ------------ //
 
 function App() {
   const [chosenToBuyList, setChosenToBuyList] = useState<Product[]>([]);
-  const [totalPrice, setTotalPrice] = useState<number[]>([0]);
+  const [totalPrice, setTotalPrice] = useState<{ id: number; price: number }[]>(
+    []
+  );
   const [productsList, setProductsList] = useState<Product[]>([]);
 
   useEffect(() => {

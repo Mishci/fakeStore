@@ -1,7 +1,8 @@
-import React, { useState, ChangeEvent, useContext } from "react";
+import React, { useState, ChangeEvent, useContext, useEffect } from "react";
 import { Product } from "./App";
 import "./productsOffer.css";
 import { CheckoutContext } from "./App";
+import { ToBuyContext } from "./App";
 
 interface AccepterProps {
   el: Product;
@@ -10,31 +11,51 @@ interface AccepterProps {
 
 export const InputAndPrice: React.FC<AccepterProps> = ({ el, i }) => {
   const checkoutContext = useContext(CheckoutContext);
+  const toBuyCOntext = useContext(ToBuyContext);
   const [inputValue, setInputValue] = useState<string>("1");
 
-  //handler function to recalculate the single item price total
-  const handlepriceCalc = (i: number) => {
-    const updatedTotalPrice: Array<number> = [...checkoutContext.totalPrice];
-    updatedTotalPrice[i] = el.price + el.price * parseInt(inputValue);
+  useEffect(() => {
+    console.log(
+      `updated total price = ${checkoutContext.totalPrice.map(
+        (item) => item.price
+      )}`
+    );
+  });
 
-    console.log(updatedTotalPrice);
-    checkoutContext.setTotalPrice(updatedTotalPrice);
-    return updatedTotalPrice;
+  //handler function to recalculate the single item price total and update its value in the chosen list or return item as it is
+  const handlepriceCalc = (e: ChangeEvent<HTMLInputElement>) => {
+    console.log(`e.target.value: ${e.target.value}`);
+    console.log(`totalPrice before change = ${checkoutContext.totalPrice}`);
+
+    const newState = checkoutContext.totalPrice.map((item) => {
+      if (item.id === el.id) {
+        console.log("item identified");
+        return { ...item, price: el.price * parseInt(e.target.value) };
+      }
+      return item;
+    });
+
+    checkoutContext.setTotalPrice(newState);
   };
 
   // Ccontroller of the onclick change of number of exemplars ot the same product
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    // 👇 Store the input value to local state
     setInputValue(e.target.value);
   };
 
   //cummulative function tracking the exemplars + recalculate the item total price
-  const onchangeHandler = (e: ChangeEvent<HTMLInputElement>, i: number) => {
+  const onchangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     handleInputChange(e);
-    handlepriceCalc(i);
-    {
-      console.log(`totalprice: ${checkoutContext.totalPrice}`);
-    }
+    handlepriceCalc(e);
+  };
+
+  const removeHandler = () => {
+    toBuyCOntext.setChosenToBuyList((current) =>
+      current.filter((item) => item.id !== el.id)
+    );
+    checkoutContext.setTotalPrice((current) =>
+      current.filter((item) => item.id !== el.id)
+    );
   };
 
   return (
@@ -88,7 +109,7 @@ export const InputAndPrice: React.FC<AccepterProps> = ({ el, i }) => {
           value={inputValue}
           min="1"
           style={{ width: "100%" }}
-          onChange={(e) => onchangeHandler(e, i)}
+          onChange={(e) => onchangeHandler(e)}
         />
       </td>
 
@@ -97,7 +118,9 @@ export const InputAndPrice: React.FC<AccepterProps> = ({ el, i }) => {
         className="product-removal"
         style={{ width: "10%", marginLeft: "5%" }}
       >
-        <button className="remove-product">Remove</button>
+        <button className="remove-product" onClick={removeHandler}>
+          Remove
+        </button>
       </td>
       {/*rendering total item price */}
       <td className="product-line-price" style={{ width: "10%" }}>

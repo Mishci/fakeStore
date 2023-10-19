@@ -3,6 +3,7 @@ import { Product } from "./App";
 import { useContext } from "react";
 import { ToBuyContext } from "./App";
 import { CheckoutContext } from "./App";
+import { useEffect } from "react";
 
 const ProductsOffer = (props: { productsList: Product[] }) => {
   const ctx = useContext(ToBuyContext);
@@ -27,6 +28,26 @@ const ProductsOffer = (props: { productsList: Product[] }) => {
     }
     return starArr;
   }
+
+  const handleOnclickHandler = (el: Product) => {
+    //check whether the item is alreadz in the added list
+    const addedcheck = ctx.chosenToBuyList.some((item) => item.id === el.id)
+      ? true
+      : false;
+
+    if (addedcheck == false) {
+      ctx.setChosenToBuyList([...ctx.chosenToBuyList, el]);
+      ctx_checkout.setTotalPrice((prevState) => [
+        ...prevState,
+        { id: el.id, price: el.price },
+      ]);
+    }
+  };
+
+  useEffect(() => {
+    console.log(ctx.chosenToBuyList);
+    console.log(ctx_checkout.totalPrice);
+  });
 
   return (
     <div className="productsPanel">
@@ -61,17 +82,7 @@ const ProductsOffer = (props: { productsList: Product[] }) => {
             )}
 
             {/*BUY BUTTON (DISPLAY: NONE) */}
-            <button
-              className="buy"
-              onClick={() => {
-                ctx.setChosenToBuyList([...ctx.chosenToBuyList, el]);
-                ctx_checkout.setTotalPrice([
-                  ...ctx_checkout.totalPrice,
-                  el.price,
-                ]);
-                console.log(ctx.chosenToBuyList);
-              }}
-            >
+            <button className="buy" onClick={() => handleOnclickHandler(el)}>
               Buy Now
             </button>
             <br />
